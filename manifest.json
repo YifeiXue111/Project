@@ -1,18 +1,10 @@
 {
-  "manifest_version": 3,
-  "name": "My Chrome Extension",
+  "name": "Hello Extensions",
+  "description": "Base Level Extension",
   "version": "1.0",
-  "description": "This is a simple Chrome extension.",
-  "permissions": ["storage", "activeTab", "scripting"],
+  "manifest_version": 3,
   "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
-    }
-  },
-  "background": {
-    "service_worker": "background.js"
+    "default_popup": "hello.html",
+    "default_icon": "hello_extensions.png"
   }
 }
