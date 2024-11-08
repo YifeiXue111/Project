@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 // Initialize the OpenAI client with your API key
 const openai = new OpenAI({
-  apiKey: 'sk-NVA6RWO8r9MCqnmd5C96JKmNKrTRgfhq9WZLOg6JaGT3BlbkFJMwYuy7XV8uvAJfugzpS8AWFQzCaM2QunsXfnSwdrUA', // Replace with your actual API key
+  apiKey: '----', // Replace with your actual API key
 });
 
 async function summarizeText(text) {
