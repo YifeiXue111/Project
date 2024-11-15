@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 // Initialize the OpenAI client with your API key
 const openai = new OpenAI({
-  apiKey: "REPLACE", // Replace with your actual API key
+  REPLACE, // Replace with your actual API key
 });
 
 async function summarizeText(text) {
@@ -30,6 +30,25 @@ async function summarizeText(text) {
     }
 }
 
+// Function to get highlighted paragraphs and summarize them
+function getAndSummarizeHighlightedText() {
+    chrome.runtime.sendMessage({ action: "getHighlightedParagraphs" }, (response) => {
+        if (response && response.paragraphs) {
+            const paragraphs = response.paragraphs.join("\n\n");
+            summarizeText(paragraphs).then((result) => {
+                if (result) {
+                    console.log("Final Summary:", result);
+                } else {
+                    console.log("No summary was generated.");
+                }
+            });
+        } else {
+            console.log("No highlighted paragraphs found!");
+        }
+    });
+}
+
+getAndSummarizeHighlightedText();
 const paragraph = process.argv[2];
 summarizeText(paragraph).then((result) => {
     if (result) {
