@@ -2,31 +2,40 @@ import OpenAI from "openai";
 
 // Initialize the OpenAI client with your API key
 const openai = new OpenAI({
-  apiKey: '----', // Replace with your actual API key
+  apiKey: "REPLACE", // Replace with your actual API key
 });
 
 async function summarizeText(text) {
     try {
         const completion = await openai.chat.completions.create({
             model: "gpt-4o-mini",
-            messages: [{ role: "user", content: `Summarize this text: ${text}` }],
+            messages: [{ role: "user", content: `Please provide a detailed summary: ${text}` }],
             max_tokens: 100,
             temperature: 0.7
         });
 
-        // Log the full response to inspect it
-        console.log(completion);
-
-        // Safely access choices only if it exists
-        if (completion && completion.choices) {
-            console.log(completion.choices[0].message.content);
+        // Extract and store the summary content in a variable
+        let summary = null;
+        if (completion && completion.choices && completion.choices[0].message) {
+            summary = completion.choices[0].message.content;
+            console.log("Summary:", summary);  // Log the summary
         } else {
             console.log("No choices in response. Check the response structure:", completion);
         }
+
+        return summary; // Return the summary for further use
     } catch (error) {
         console.error("Error with API request:", error);
+        return null;  // Return null if there was an error
     }
 }
 
-const text = "Your text to summarize here.";
-summarizeText(text);
+const paragraph = process.argv[2];
+summarizeText(paragraph).then((result) => {
+    if (result) {
+        // Do something with the result if needed
+        console.log("Final Summary:", result);
+    } else {
+        console.log("No summary was generated.");
+    }
+});
